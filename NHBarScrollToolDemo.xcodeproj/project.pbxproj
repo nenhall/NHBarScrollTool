@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A0491501F39A03900B8A84F /* UIView+NHFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A04914F1F39A03900B8A84F /* UIView+NHFrame.m */; };
+		0A0491531F39B82800B8A84F /* NHCustomBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0491521F39B82800B8A84F /* NHCustomBarViewController.m */; };
+		0A0491561F39BCF500B8A84F /* NHTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0491551F39BCF500B8A84F /* NHTabBar.m */; };
+		0A04915D1F39BFA500B8A84F /* NHPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A04915C1F39BFA500B8A84F /* NHPushViewController.m */; };
 		0ACD6FCA1F38693D00C77CD3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACD6FC91F38693D00C77CD3 /* main.m */; };
 		0ACD6FCD1F38693D00C77CD3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACD6FCC1F38693D00C77CD3 /* AppDelegate.m */; };
 		0ACD6FD31F38693D00C77CD3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ACD6FD11F38693D00C77CD3 /* Main.storyboard */; };
@@ -40,6 +44,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A04914E1F39A03900B8A84F /* UIView+NHFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+NHFrame.h"; sourceTree = "<group>"; };
+		0A04914F1F39A03900B8A84F /* UIView+NHFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NHFrame.m"; sourceTree = "<group>"; };
+		0A0491511F39B82800B8A84F /* NHCustomBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHCustomBarViewController.h; sourceTree = "<group>"; };
+		0A0491521F39B82800B8A84F /* NHCustomBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHCustomBarViewController.m; sourceTree = "<group>"; };
+		0A0491541F39BCF500B8A84F /* NHTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHTabBar.h; sourceTree = "<group>"; };
+		0A0491551F39BCF500B8A84F /* NHTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHTabBar.m; sourceTree = "<group>"; };
+		0A04915B1F39BFA500B8A84F /* NHPushViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHPushViewController.h; sourceTree = "<group>"; };
+		0A04915C1F39BFA500B8A84F /* NHPushViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHPushViewController.m; sourceTree = "<group>"; };
 		0ACD6FC51F38693D00C77CD3 /* NHBarScrollToolDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NHBarScrollToolDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ACD6FC91F38693D00C77CD3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0ACD6FCB1F38693D00C77CD3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -125,10 +137,16 @@
 				0ACD70011F386A8900C77CD3 /* NHSubViewController.h */,
 				0ACD70021F386A8900C77CD3 /* NHSubViewController.m */,
 				0ACD70031F386A8900C77CD3 /* NHSubViewController.xib */,
+				0A0491511F39B82800B8A84F /* NHCustomBarViewController.h */,
+				0A0491521F39B82800B8A84F /* NHCustomBarViewController.m */,
+				0A04915B1F39BFA500B8A84F /* NHPushViewController.h */,
+				0A04915C1F39BFA500B8A84F /* NHPushViewController.m */,
 				0ACD6FFE1F386A5800C77CD3 /* NHTabBarController.h */,
 				0ACD6FFF1F386A5800C77CD3 /* NHTabBarController.m */,
 				0ACD6FFB1F386A4200C77CD3 /* NHNavigationController.h */,
 				0ACD6FFC1F386A4200C77CD3 /* NHNavigationController.m */,
+				0A0491541F39BCF500B8A84F /* NHTabBar.h */,
+				0A0491551F39BCF500B8A84F /* NHTabBar.m */,
 				0ACD6FD11F38693D00C77CD3 /* Main.storyboard */,
 				0ACD6FD41F38693D00C77CD3 /* Assets.xcassets */,
 				0ACD6FD61F38693D00C77CD3 /* LaunchScreen.storyboard */,
@@ -167,6 +185,8 @@
 		0ACD70061F386FAD00C77CD3 /* NHBarScrollTool */ = {
 			isa = PBXGroup;
 			children = (
+				0A04914E1F39A03900B8A84F /* UIView+NHFrame.h */,
+				0A04914F1F39A03900B8A84F /* UIView+NHFrame.m */,
 				0ACD70071F386FD800C77CD3 /* NHBarScrollTool.h */,
 				0ACD70081F386FD800C77CD3 /* NHBarScrollTool.m */,
 			);
@@ -385,10 +405,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A0491561F39BCF500B8A84F /* NHTabBar.m in Sources */,
 				0ACD70001F386A5800C77CD3 /* NHTabBarController.m in Sources */,
 				0ACD6FFD1F386A4200C77CD3 /* NHNavigationController.m in Sources */,
 				0ACD70041F386A8900C77CD3 /* NHSubViewController.m in Sources */,
+				0A0491531F39B82800B8A84F /* NHCustomBarViewController.m in Sources */,
 				0ACD6FCD1F38693D00C77CD3 /* AppDelegate.m in Sources */,
+				0A04915D1F39BFA500B8A84F /* NHPushViewController.m in Sources */,
+				0A0491501F39A03900B8A84F /* UIView+NHFrame.m in Sources */,
 				0ACD70091F386FD800C77CD3 /* NHBarScrollTool.m in Sources */,
 				0ACD6FCA1F38693D00C77CD3 /* main.m in Sources */,
 			);

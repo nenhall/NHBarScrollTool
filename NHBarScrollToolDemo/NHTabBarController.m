@@ -7,6 +7,8 @@
 //
 
 #import "NHTabBarController.h"
+#import "NHTabBar.h"
+#import "NHPushViewController.h"
 
 @interface NHTabBarController ()
 
@@ -16,7 +18,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    NHTabBar *tabbar = [[NHTabBar alloc] init];
+    [tabbar setBtnClickBlock:^{
+        UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        NHPushViewController *push = [board instantiateViewControllerWithIdentifier:@"NHPushViewController"];
+        [self presentViewController:push animated:YES completion:nil];
+    }];
+    [self setValue:tabbar forKeyPath:@"tabBar"];
+    
+    self.selectedIndex = 0;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +35,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

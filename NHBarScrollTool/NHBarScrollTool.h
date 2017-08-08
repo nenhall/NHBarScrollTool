@@ -13,6 +13,7 @@
 @property (nonatomic, strong) IBOutletCollection(id) NSArray* delegateTargets;
 
 + (instancetype)BarScrollToolWithController:(UIViewController *)viewController
+                                 scrollView:(UIScrollView *)scrollView
                               navigationBar:(__kindof UIView *)navigationBar
                                      tabBar:(__kindof UIView *)tabBar;
 

@@ -1,47 +1,45 @@
 //
-//  NHSubViewController.m
+//  NHPushViewController.m
 //  NHBarScrollToolDemo
 //
-//  Created by neghao on 2017/8/7.
+//  Created by neghao on 2017/8/8.
 //  Copyright © 2017年 neghao. All rights reserved.
 //
 
-#import "NHSubViewController.h"
-#import <MJRefresh.h>
+#import "NHPushViewController.h"
 #import "NHBarScrollTool.h"
+#import <MJRefresh.h>
+#import "UIView+NHFrame.h"
 
-@interface NHSubViewController ()<UITableViewDataSource,UITableViewDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@interface NHPushViewController ()<UITableViewDataSource,UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UIView *navigationBar;
+@property (weak, nonatomic) IBOutlet UIView *tabBar;
 @property (nonatomic, strong) NHBarScrollTool *barScrollTool;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @end
 
-@implementation NHSubViewController
+@implementation NHPushViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"原生导航、工具栏";
-
-    
     [self setupTableView];
-    
-    
-    
-}
 
+}
 
 - (NHBarScrollTool *)barScrollTool {
     if (!_barScrollTool) {
         _barScrollTool = [NHBarScrollTool BarScrollToolWithController:self
                                                            scrollView:_tableView
-                                                        navigationBar:nil
-                                                               tabBar:nil];
+                                                        navigationBar:_navigationBar
+                                                               tabBar:_tabBar];
         _barScrollTool.delegateTargets = @[ self ];
     }
     return _barScrollTool;
 }
 
 - (void)setupTableView {
-
+    
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     self.tableView.dataSource = self;
     self.tableView.delegate = self.barScrollTool;
@@ -81,6 +79,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return 60;
+}
+
+- (IBAction)back:(UIButton *)sender {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

@@ -1,30 +1,44 @@
 //
-//  NHSubViewController.m
+//  NHCustomBarViewController.m
 //  NHBarScrollToolDemo
 //
-//  Created by neghao on 2017/8/7.
+//  Created by neghao on 2017/8/8.
 //  Copyright © 2017年 neghao. All rights reserved.
 //
 
-#import "NHSubViewController.h"
-#import <MJRefresh.h>
+#import "NHCustomBarViewController.h"
 #import "NHBarScrollTool.h"
+#import <MJRefresh.h>
+#import "UIView+NHFrame.h"
 
-@interface NHSubViewController ()<UITableViewDataSource,UITableViewDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@interface NHCustomBarViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) NHBarScrollTool *barScrollTool;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *navigationBar;
+
 @end
 
-@implementation NHSubViewController
+@implementation NHCustomBarViewController
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"原生导航、工具栏";
-
+    
+    self.navigationItem.title = @"自定义导航";
     
     [self setupTableView];
-    
-    
     
 }
 
@@ -33,7 +47,7 @@
     if (!_barScrollTool) {
         _barScrollTool = [NHBarScrollTool BarScrollToolWithController:self
                                                            scrollView:_tableView
-                                                        navigationBar:nil
+                                                        navigationBar:_navigationBar
                                                                tabBar:nil];
         _barScrollTool.delegateTargets = @[ self ];
     }
@@ -41,7 +55,7 @@
 }
 
 - (void)setupTableView {
-
+    
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     self.tableView.dataSource = self;
     self.tableView.delegate = self.barScrollTool;
@@ -82,9 +96,6 @@
     
     return 60;
 }
-
-
-
 
 
 @end
