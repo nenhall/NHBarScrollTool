@@ -8,7 +8,7 @@
 
 #import "NHBarScrollTool.h"
 #import "UIView+NHFrame.h"
-#import <MJRefresh.h>
+//#import "MJRefresh.h"
 
 @interface NHBarScrollTool ()
 @property (nonatomic, weak  ) UIViewController   *currentConteroller;
@@ -139,9 +139,9 @@
     }
     
     
-    if (scrollView.mj_offsetY >= scrollView.mj_contentH - scrollView.mj_h + scrollView.mj_h + scrollView.mj_insetB - scrollView.mj_h) {
-        return;
-    }
+//    if (scrollView.mj_offsetY >= scrollView.mj_contentH - scrollView.mj_h + scrollView.mj_h + scrollView.mj_insetB - scrollView.mj_h) {
+//        return;
+//    }
     
     
     [self updatePageBarFrame];
@@ -252,7 +252,7 @@
 
 - (void)updataTabBarAndNavigationBarFrame {
     
-    CGFloat tabBarOffset = kScreenHeight - _tabBar.top;
+//    CGFloat tabBarOffset = kScreenHeight - _tabBar.top;
     CGFloat scrollViewOffsetY = _scrollView.contentOffset.y;
     
     //    kNSLog(@"%f",_scrollView.contentOffset.y);
