@@ -8,7 +8,7 @@
 
 #import "NHBarScrollTool.h"
 #import "UIView+NHFrame.h"
-//#import "MJRefresh.h"
+#import "MJRefresh.h"
 
 @interface NHBarScrollTool ()
 @property (nonatomic, weak  ) UIViewController   *currentConteroller;
@@ -23,6 +23,7 @@
 @property (nonatomic, assign) CGFloat            tabBarOriginallY;
 @property (nonatomic, assign) CGFloat            navgationHeight;
 @property (nonatomic, assign) CGFloat            tabbarHeight;
+
 
 @end
 
@@ -56,14 +57,17 @@
         _tabBarOriginallY = _tabBar.top;
         _navgationHeight = _navigationView.height + _navBarOriginallY;
         _tabbarHeight = _tabBar.height;
+        _scrollView = scrollView;
+        
     }
     return self;
 }
 
 - (BOOL)respondsToSelector:(SEL)aSelector{
-    if ([super respondsToSelector:aSelector]) {
-        return YES;
-    }
+    
+//    if ([super respondsToSelector:aSelector]) {
+//        return YES;
+//    }
     for (id target in self.weakRefTargets) {
         if (target && [target respondsToSelector:aSelector]) {
             return YES;
@@ -113,16 +117,23 @@
     return NSNotFound;
 }
 
+- (void)setDelegateTargets:(NSArray *)delegateTargets {
+    _delegateTargets = delegateTargets;
+    self.weakRefTargets = [NSPointerArray weakObjectsPointerArray];
+    for (id delegate in delegateTargets) {
+        [self.weakRefTargets addPointer:(__bridge void * _Nullable)(delegate)];
+    }
+}
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     _scrollView = scrollView;
     
-    for (id target in self.weakRefTargets) {
-        if ([target respondsToSelector:_cmd]) {
-            [target scrollViewDidScroll:scrollView];
-        }
-    }
+    //    for (id target in self.weakRefTargets) {
+    //        if ([target respondsToSelector:_cmd]) {
+    //            [target scrollViewDidScroll:scrollView];
+    //        }
+    //    }
     
     CGFloat scrollViewOffsetY = scrollView.contentOffset.y;
     _moveOffset = scrollViewOffsetY - _lastPointY;
@@ -133,15 +144,17 @@
 //        return;
     }
     
+   
+    
     //往下拽刷新的时候，结束掉
     if (scrollViewOffsetY <= -_scrollView.contentInset.top) {
         return;
     }
     
     
-//    if (scrollView.mj_offsetY >= scrollView.mj_contentH - scrollView.mj_h + scrollView.mj_h + scrollView.mj_insetB - scrollView.mj_h) {
-//        return;
-//    }
+    if (scrollView.mj_offsetY >= scrollView.mj_contentH - scrollView.mj_h + scrollView.mj_h + scrollView.mj_insetB - scrollView.mj_h) {
+        return;
+    }
     
     
     [self updatePageBarFrame];
