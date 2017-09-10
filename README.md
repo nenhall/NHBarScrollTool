@@ -3,6 +3,7 @@
 #### 使用方法：
 把相关类拖入工程(如下图)：
 ![](https://github.com/neghao/NHBarScrollTool/blob/master/filepath.png)
+
 你也可以使用cocoapod管理：
 `pod "NHBarScrollTool"`
 
