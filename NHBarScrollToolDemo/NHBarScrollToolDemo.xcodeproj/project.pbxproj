@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A0491501F39A03900B8A84F /* UIView+NHFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A04914F1F39A03900B8A84F /* UIView+NHFrame.m */; };
 		0A0491531F39B82800B8A84F /* NHCustomBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0491521F39B82800B8A84F /* NHCustomBarViewController.m */; };
 		0A0491561F39BCF500B8A84F /* NHTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0491551F39BCF500B8A84F /* NHTabBar.m */; };
 		0A04915D1F39BFA500B8A84F /* NHPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A04915C1F39BFA500B8A84F /* NHPushViewController.m */; };
@@ -22,7 +21,6 @@
 		0ACD70001F386A5800C77CD3 /* NHTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACD6FFF1F386A5800C77CD3 /* NHTabBarController.m */; };
 		0ACD70041F386A8900C77CD3 /* NHSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACD70021F386A8900C77CD3 /* NHSubViewController.m */; };
 		0ACD70051F386A8900C77CD3 /* NHSubViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0ACD70031F386A8900C77CD3 /* NHSubViewController.xib */; };
-		0ACD70091F386FD800C77CD3 /* NHBarScrollTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ACD70081F386FD800C77CD3 /* NHBarScrollTool.m */; };
 		EFAD45B2E49F95AC46D8679A /* libPods-NHBarScrollToolDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9BF08597494328A99D6D0D1 /* libPods-NHBarScrollToolDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -44,8 +42,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0A04914E1F39A03900B8A84F /* UIView+NHFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+NHFrame.h"; sourceTree = "<group>"; };
-		0A04914F1F39A03900B8A84F /* UIView+NHFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+NHFrame.m"; sourceTree = "<group>"; };
 		0A0491511F39B82800B8A84F /* NHCustomBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHCustomBarViewController.h; sourceTree = "<group>"; };
 		0A0491521F39B82800B8A84F /* NHCustomBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHCustomBarViewController.m; sourceTree = "<group>"; };
 		0A0491541F39BCF500B8A84F /* NHTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHTabBar.h; sourceTree = "<group>"; };
@@ -73,8 +69,6 @@
 		0ACD70011F386A8900C77CD3 /* NHSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHSubViewController.h; sourceTree = "<group>"; };
 		0ACD70021F386A8900C77CD3 /* NHSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHSubViewController.m; sourceTree = "<group>"; };
 		0ACD70031F386A8900C77CD3 /* NHSubViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NHSubViewController.xib; sourceTree = "<group>"; };
-		0ACD70071F386FD800C77CD3 /* NHBarScrollTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHBarScrollTool.h; sourceTree = "<group>"; };
-		0ACD70081F386FD800C77CD3 /* NHBarScrollTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHBarScrollTool.m; sourceTree = "<group>"; };
 		ABBFBDC677794F5C60320B0F /* Pods-NHBarScrollToolDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NHBarScrollToolDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NHBarScrollToolDemo/Pods-NHBarScrollToolDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		C5700290D8EE3DCE61808FE5 /* Pods-NHBarScrollToolDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NHBarScrollToolDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-NHBarScrollToolDemo/Pods-NHBarScrollToolDemo.release.xcconfig"; sourceTree = "<group>"; };
 		E9BF08597494328A99D6D0D1 /* libPods-NHBarScrollToolDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NHBarScrollToolDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,7 +103,6 @@
 		0ACD6FBC1F38693D00C77CD3 = {
 			isa = PBXGroup;
 			children = (
-				0ACD70061F386FAD00C77CD3 /* NHBarScrollTool */,
 				0ACD6FC71F38693D00C77CD3 /* NHBarScrollToolDemo */,
 				0ACD6FE11F38693D00C77CD3 /* NHBarScrollToolDemoTests */,
 				0ACD6FEC1F38693D00C77CD3 /* NHBarScrollToolDemoUITests */,
@@ -180,18 +173,6 @@
 				0ACD6FEF1F38693D00C77CD3 /* Info.plist */,
 			);
 			path = NHBarScrollToolDemoUITests;
-			sourceTree = "<group>";
-		};
-		0ACD70061F386FAD00C77CD3 /* NHBarScrollTool */ = {
-			isa = PBXGroup;
-			children = (
-				0A04914E1F39A03900B8A84F /* UIView+NHFrame.h */,
-				0A04914F1F39A03900B8A84F /* UIView+NHFrame.m */,
-				0ACD70071F386FD800C77CD3 /* NHBarScrollTool.h */,
-				0ACD70081F386FD800C77CD3 /* NHBarScrollTool.m */,
-			);
-			name = NHBarScrollTool;
-			path = ../NHBarScrollTool;
 			sourceTree = "<group>";
 		};
 		2CE8510506BB4CB6246384F2 /* Pods */ = {
@@ -413,8 +394,6 @@
 				0A0491531F39B82800B8A84F /* NHCustomBarViewController.m in Sources */,
 				0ACD6FCD1F38693D00C77CD3 /* AppDelegate.m in Sources */,
 				0A04915D1F39BFA500B8A84F /* NHPushViewController.m in Sources */,
-				0A0491501F39A03900B8A84F /* UIView+NHFrame.m in Sources */,
-				0ACD70091F386FD800C77CD3 /* NHBarScrollTool.m in Sources */,
 				0ACD6FCA1F38693D00C77CD3 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
