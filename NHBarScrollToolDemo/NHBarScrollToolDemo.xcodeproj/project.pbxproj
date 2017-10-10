@@ -190,7 +190,8 @@
 				0ACD70071F386FD800C77CD3 /* NHBarScrollTool.h */,
 				0ACD70081F386FD800C77CD3 /* NHBarScrollTool.m */,
 			);
-			path = NHBarScrollTool;
+			name = NHBarScrollTool;
+			path = ../NHBarScrollTool;
 			sourceTree = "<group>";
 		};
 		2CE8510506BB4CB6246384F2 /* Pods */ = {
