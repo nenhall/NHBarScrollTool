@@ -9,6 +9,14 @@
 #import "NHBarScrollTool.h"
 #include <objc/message.h>
 
+/*******************************自定义的 NSLog******************************/
+#pragma mark - 自定义的 NSLog
+#ifdef DEBUG
+#define NHSLog(fmt, ...) NSLog((@"%s " fmt), __PRETTY_FUNCTION__, ##__VA_ARGS__);
+#else
+#define NHSLog(...)
+#endif
+
 #if __has_include("NHUIKit.h")
 #define UIViewNHLayout_H
 #import "NHUIKit.h"
@@ -30,17 +38,7 @@
 #define kNavBarTopPad             (kScreen5_85inch ? 44.0 : 0.0)
 #define kStatusTopPad             (kScreen5_85inch ? 24.0 : 0.0)
 #define kLandscapeBottomPad       (kScreen5_85inch ? 21.0 : 0.0)
-#endif
-/*******************************自定义的 NSLog******************************/
-#pragma mark - 自定义的 NSLog
-#ifdef DEBUG
-#define NHSLog(fmt, ...) NSLog((@"%s " fmt), __PRETTY_FUNCTION__, ##__VA_ARGS__);
-#else
-#define NHSLog(...)
-#endif
 
-
-#ifndef UIViewNHLayout_H
 @interface UIView (NHLayout2)
 @property (nonatomic) CGFloat left;
 @property (nonatomic) CGFloat top;
