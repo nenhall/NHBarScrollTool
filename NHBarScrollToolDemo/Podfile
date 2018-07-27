@@ -1,9 +1,10 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, "7.0"
+platform :ios, "8.0"
 
 target 'NHBarScrollToolDemo' do
 
-pod "MJRefresh"
-pod 'NHBarScrollTool', :path=> '../NHBarScrollTool.podspec'
-#pod 'NHExtension'
+   pod 'NHExtension'
+   pod 'NHBarScrollTool', :path=> '../NHBarScrollTool.podspec'
+   pod 'MJRefresh'
+
 end

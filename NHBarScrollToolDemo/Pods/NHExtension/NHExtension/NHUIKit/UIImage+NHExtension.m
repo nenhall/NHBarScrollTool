@@ -2,8 +2,8 @@
 //  UIImage+NHExtension.m
 //  NHExtension
 //
-//  Created by simope on 16/7/19.
-//  Copyright © 2016年 facebac. All rights reserved.
+//  Created by neghao on 2016/11/24.
+//  Copyright © 2016年 neghao.studio. All rights reserved.
 //
 
 #import "UIImage+NHExtension.h"

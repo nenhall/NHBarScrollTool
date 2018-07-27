@@ -2,8 +2,8 @@
 //  UIImage+NHExtension.h
 //  NHExtension
 //
-//  Created by simope on 16/7/19.
-//  Copyright © 2016年 facebac. All rights reserved.
+//  Created by neghao on 2016/11/24.
+//  Copyright © 2016年 neghao.studio. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -24,10 +24,10 @@
  *  @return 返回一张新的图片
  */
 + (UIImage *)imageWithData:(NSData *)data scaledToSize:(CGSize)size;
-/**
- *  @param 对图片大小进行压缩(100kb左右)
- */
+
+/** 对图片大小进行压缩(100kb左右) */
 + (NSData *)imageJPEGRepresentationData:(UIImage *)myimage;
+
 /**
  *  图片压缩
  *
@@ -46,7 +46,7 @@
  *  @param defineWidth 设置固定宽度
  *
  */
-+ (UIImage *) imageCompressForWidth:(UIImage *)sourceImage targetWidth:(CGFloat)defineWidth;
++ (UIImage *)imageCompressForWidth:(UIImage *)sourceImage targetWidth:(CGFloat)defineWidth;
 
 
 /**
@@ -56,14 +56,18 @@
  */
 + (UIImage *)resizableImage:(NSString *)name;
 
-
-
 /**
  高撕模糊效果
  @param image 原图
  @param blur 模糊度
  */
 + (UIImage *)blurryImage:(UIImage *)image withBlurLevel:(CGFloat)blur;
+
+/**
+高撕模糊效果
+@param image 原图
+@param blur 模糊度
+*/
 + (UIImage *)boxblurImage:(UIImage *)image withBlurNumber:(CGFloat)blur;
 
 @end

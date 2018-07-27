@@ -1,28 +1,37 @@
 PODS:
+  - DZNEmptyDataSet (1.8.1)
   - MJRefresh (3.1.12)
   - NHBarScrollTool (1.0.2):
     - MJRefresh
     - NHExtension
-  - NHExtension (1.0.2)
+  - NHExtension (1.1.1):
+    - DZNEmptyDataSet
+    - "UIView+MGBadgeView"
+  - "UIView+MGBadgeView (0.0.1)"
 
 DEPENDENCIES:
   - MJRefresh
   - NHBarScrollTool (from `../NHBarScrollTool.podspec`)
+  - NHExtension
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
+    - DZNEmptyDataSet
     - MJRefresh
     - NHExtension
+    - "UIView+MGBadgeView"
 
 EXTERNAL SOURCES:
   NHBarScrollTool:
     :path: "../NHBarScrollTool.podspec"
 
 SPEC CHECKSUMS:
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   NHBarScrollTool: d3eafe2c918ac5dc6158772c0c61be481c5a843e
-  NHExtension: 49e61282938629d54739f7903860aac7aacc0ffa
+  NHExtension: 301f2bdb80f541155ebfae1f34c2914a733bd9dc
+  "UIView+MGBadgeView": 49caf22454d35f042c798dc8ce27ca38fb6e7d2a
 
-PODFILE CHECKSUM: 654922b7dd92852c81912dd4cfd95cedc1aa7361
+PODFILE CHECKSUM: 2abf2c38ee570b08a6b485b86b4bcbf3a3ad07d1
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.0

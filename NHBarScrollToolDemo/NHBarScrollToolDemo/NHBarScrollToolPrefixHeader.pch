@@ -10,7 +10,8 @@
 #define NHBarScrollToolPrefixHeader_pch
 
 #import "NHBarScrollTool.h"
-
+#include <NHUIKit.h>
+#include <NHFoundation.h>
 
 
 #endif /* NHBarScrollToolPrefixHeader_pch */
