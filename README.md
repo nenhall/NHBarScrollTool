@@ -11,14 +11,16 @@
 `pod "NHBarScrollTool"`
 
 
-1. 添加NHBarScrollTool的代理对象，是个数组，可以添加多个对象，被添加进去的对象都可以接收到scrollView的代理方法
-  `barScrollTool.delegateTargets = @[ self ];`
+1. 添加NHBarScrollTool的代理对象，是个数组，可以添加多个对象，被添加进去的对象都可以接收到scrollView的代理方法:
+  
+   `barScrollTool.delegateTargets = @[ self ];`
 
 2. 把tableView的代理设置为：
-  `self.tableView.delegate = self.barScrollTool;`
+  
+   `self.tableView.delegate = self.barScrollTool;`
 
 3. 设置barScrollToolr的代理：
-
+   
    `_barScrollTool.delegateTargets = ...`
 
 ![scroll.gif](http://upload-images.jianshu.io/upload_images/2443108-52e124944599ee1d.gif?imageMogr2/auto-orient/strip)
@@ -65,6 +67,6 @@
 ```
 
 
-比较忙，没写太细节，代码里面的注释也不是很全，欢迎使用吐槽。
+比较忙，没写太细节，关键代码里面有注释，欢迎使用。
 
 
