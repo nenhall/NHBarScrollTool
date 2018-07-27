@@ -59,10 +59,9 @@
 
 
 @interface NHBarScrollTool : NSObject <UITableViewDelegate,UIScrollViewDelegate,UICollectionViewDelegate>
-@property (nonatomic, strong) IBOutletCollection(id) NSArray* delegateTargets;
-/**
- tabBar凸出部份的补偿值，默认为0
- */
+@property (nonatomic, copy) IBOutletCollection(id) NSArray* delegateTargets;
+
+/** tabBar凸出部份的高度，默认为0 */
 @property (nonatomic, assign) CGFloat tabBarBulgeOffset;
 
 

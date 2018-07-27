@@ -664,7 +664,6 @@
 
 //保存代理
 - (void)setDelegateTargets:(NSArray *)delegateTargets {
-    _delegateTargets = delegateTargets;
     self.weakRefTargets = [NSPointerArray weakObjectsPointerArray];
     for (id delegate in delegateTargets) {
         [self.weakRefTargets addPointer:(__bridge void * _Nullable)(delegate)];

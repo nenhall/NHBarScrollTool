@@ -30,10 +30,12 @@
 
 - (NHBarScrollTool *)barScrollTool {
     if (!_barScrollTool) {
+        UINavigationBar *navB = self.navigationController.navigationBar;
+        UITabBar *tabB = self.tabBarController.tabBar;
         _barScrollTool = [NHBarScrollTool barToolWithController:self
                                                      scrollView:_tableView
-                                                  navigationBar:self.navigationController.navigationBar
-                                                         tabBar:self.tabBarController.tabBar];
+                                                  navigationBar:navB
+                                                         tabBar:tabB];
         _barScrollTool.delegateTargets = @[ self ];
         if (kScreenWidth == 320 || (kScreenHeight == 320)) {
             _barScrollTool.tabBarBulgeOffset = 30;

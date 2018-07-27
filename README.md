@@ -25,29 +25,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     [self setupTableView];
 }
 
 - (void)setupTableView {
-
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     self.tableView.dataSource = self;
     self.tableView.delegate = self.barScrollTool;
-    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
-    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 0, 0);
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    //如果是使用autolayout、mansory布局，需要在`viewDidLayoutSubviews`函数中调用此更新约束
+    [self.barScrollTool updateConstraints];
 }
 
 - (NHBarScrollTool *)barScrollTool {
     if (!_barScrollTool) {
-        _barScrollTool = [NHBarScrollTool BarScrollToolWithController:self
-                                                           scrollView:_tableView
-                                                        navigationBar:nil
-                                                               tabBar:nil];
+        UINavigationBar *navB = self.navigationController.navigationBar;
+        UITabBar *tabB = self.tabBarController.tabBar;
+        _barScrollTool = [NHBarScrollTool barToolWithController:self
+                                                     scrollView:_tableView
+                                                  navigationBar:navB
+                                                         tabBar:tabB];
         _barScrollTool.delegateTargets = @[ self ];
+        //中间按钮凸出部份的高度(如果有)
+        _barScrollTool.tabBarBulgeOffset = 20;
     }
     return _barScrollTool;
 }
+
 
 ```
 
