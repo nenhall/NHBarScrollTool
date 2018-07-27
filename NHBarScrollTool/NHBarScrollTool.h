@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #if __has_include("UIView+NHLayout.h")
-#define UIViewNHLayout_H  0
+#define UIViewNHLayout_H
 #import "UIView+NHLayout.h"
 #else
 #pragma mark - 屏幕尺寸相关
@@ -39,6 +39,25 @@
 #define NHSLog(...)
 #endif
 
+@interface UIView (NHLayout2)
+@property (nonatomic) CGFloat left;
+@property (nonatomic) CGFloat top;
+@property (nonatomic) CGFloat right;
+@property (nonatomic) CGFloat bottom;
+@property (nonatomic) CGFloat width;
+@property (nonatomic) CGFloat height;
+@property (nonatomic) CGFloat centerX;
+@property (nonatomic) CGFloat centerY;
+@property (nonatomic, readonly) CGFloat ttScreenX;
+@property (nonatomic, readonly) CGFloat ttScreenY;
+@property (nonatomic, readonly) CGFloat screenViewX;
+@property (nonatomic, readonly) CGFloat screenViewY;
+@property (nonatomic, readonly) CGRect screenFrame;
+@property (nonatomic) CGPoint origin;
+@property (nonatomic) CGSize size;
+@end
+
+
 @interface NHBarScrollTool : NSObject <UITableViewDelegate,UIScrollViewDelegate,UICollectionViewDelegate>
 @property (nonatomic, strong) IBOutletCollection(id) NSArray* delegateTargets;
 /**
@@ -47,13 +66,18 @@
 @property (nonatomic, assign) CGFloat tabBarBulgeOffset;
 
 
-+ (instancetype)BarScrollToolWithController:(UIViewController *)viewController
-                                 scrollView:(UIScrollView *)scrollView
-                              navigationBar:(__kindof UIView *)navigationBar
-                                     tabBar:(__kindof UIView *)tabBar;
++ (instancetype)barToolWithController:(__kindof UIViewController *)viewController
+                           scrollView:(UIScrollView *)scrollView
+                        navigationBar:(__kindof UIView *)navigationBar
+                               tabBar:(__kindof UIView *)tabBar;
 
-
-
+/** 移除代理对象 */
 - (void)removeObserver:(id)delegateTag;
+
+
+/** updateConstraints
+ * 如果是使用autolayout、mansory布局，需要在`viewDidLayoutSubviews`函数中调用此
+ */
+- (void)updateConstraints;
 
 @end

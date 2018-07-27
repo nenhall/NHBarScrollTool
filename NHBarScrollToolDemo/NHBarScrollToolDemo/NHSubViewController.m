@@ -30,10 +30,10 @@
 
 - (NHBarScrollTool *)barScrollTool {
     if (!_barScrollTool) {
-        _barScrollTool = [NHBarScrollTool BarScrollToolWithController:self
-                                                           scrollView:_tableView
-                                                        navigationBar:self.navigationController.navigationBar
-                                                               tabBar:self.tabBarController.tabBar];
+        _barScrollTool = [NHBarScrollTool barToolWithController:self
+                                                     scrollView:_tableView
+                                                  navigationBar:self.navigationController.navigationBar
+                                                         tabBar:self.tabBarController.tabBar];
         _barScrollTool.delegateTargets = @[ self ];
         if (kScreenWidth == 320 || (kScreenHeight == 320)) {
             _barScrollTool.tabBarBulgeOffset = 30;
@@ -47,7 +47,6 @@
 - (void)setupTableView {
 //    self.tableView.translatesAutoresizingMaskIntoConstraints = YES;
 //    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
-    self.automaticallyAdjustsScrollViewInsets = NO;
 
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     self.tableView.dataSource = self;
@@ -87,7 +86,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     return 60;
 }
 

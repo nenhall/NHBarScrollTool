@@ -34,20 +34,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.navigationItem.title = @"自定义导航";
-    
     [self setupTableView];
-    
 }
 
 
 - (NHBarScrollTool *)barScrollTool {
     if (!_barScrollTool) {
-        _barScrollTool = [NHBarScrollTool BarScrollToolWithController:self
-                                                           scrollView:_tableView
-                                                        navigationBar:_navigationBar
-                                                               tabBar:nil];
+        _barScrollTool = [NHBarScrollTool barToolWithController:self
+                                                     scrollView:_tableView
+                                                  navigationBar:_navigationBar
+                                                         tabBar:nil];
         _barScrollTool.delegateTargets = @[ self ];
     }
     return _barScrollTool;

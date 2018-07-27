@@ -61,6 +61,10 @@
     [self setAllButtonsFrame];
 }
 
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+}
+
 //重新设置button的位置
 - (void)setAllButtonsFrame {
     
