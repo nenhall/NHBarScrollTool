@@ -231,6 +231,10 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     _scrollView = scrollView;
     
+    if (self.scrollView.contentOffset.y <= -_scrollView.contentInset.top) {
+        return;
+    }
+
     CGFloat scrollViewOffsetY = scrollView.contentOffset.y;
     _moveOffset = scrollViewOffsetY - _lastPointY;
     
@@ -264,10 +268,6 @@
         [self updataTabBarAndNavigationBarFrame];
         return;
     }
-    
-    if (self.scrollView.contentOffset.y < -_scrollView.contentInset.top) {
-        return;
-    }
 
     UIPanGestureRecognizer *pan = _scrollView.panGestureRecognizer;
     CGFloat velocity = [pan velocityInView:_scrollView].y;
@@ -295,8 +295,6 @@
 //    UIPanGestureRecognizer *pan = _scrollView.panGestureRecognizer;
 //    CGFloat velocity = [pan velocityInView:_scrollView].y;
 //    NHSLog(@"velocity %f   %f",velocity,_scrollView.contentSize.height);
-    
-
     
     if (_moveOffset > 0) {//上
         if (pageBarOffsetY <= -referencePoint) {
@@ -382,10 +380,11 @@
         // 解决下滑到一半的时候，刷新栏目没有自动隐藏
         if (scrollViewOffsetY < 0) {
             _scrollView.contentOffset = CGPointMake(0, -_navgationHeight);
+        } else {
+            
         }
         [UIView animateWithDuration:0.1 animations:^{
             self.tabBar.top = kScreenHeight - self.tabbarHeight;
-            self.tabBarController.hidesBottomBarWhenPushed = NO;
             self.navigationView.top = self.navBarOriginallY;
         }];
         
@@ -393,12 +392,16 @@
         // 解决上滑到一半的时候，刷新栏目没有自动隐藏
         if (scrollViewOffsetY < 0) {
             _scrollView.contentOffset = CGPointMake(0, 0);
+            [UIView animateWithDuration:0.1 animations:^{
+                self.tabBar.top = kScreenHeight - self.tabbarHeight;
+                self.navigationView.top = self.navBarOriginallY;
+            }];
+        } else {
+            [UIView animateWithDuration:0.1 animations:^{
+                self.tabBar.top = kScreenHeight + self.tabBarBulgeOffset;
+                self.navigationView.top = -self.navgationHeight;
+            }];
         }
-        [UIView animateWithDuration:0.1 animations:^{
-            self.tabBar.top = kScreenHeight + self.tabBarBulgeOffset;
-            self.tabBarController.hidesBottomBarWhenPushed = YES;
-            self.navigationView.top = -self.navgationHeight;
-        }];
     }
 }
 
@@ -452,9 +455,9 @@
         self.scrollHelper.scrollView = scrollView;
         
         if (scrollView) {
-            UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-            pan.delegate = self;
-            _scrollingEnabled = YES;
+//            UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+//            pan.delegate = self;
+//            _scrollingEnabled = YES;
 //            [scrollView addGestureRecognizer:pan];
         }
     }

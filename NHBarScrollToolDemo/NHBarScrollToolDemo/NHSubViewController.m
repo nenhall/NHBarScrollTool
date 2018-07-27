@@ -35,7 +35,11 @@
                                                         navigationBar:nil
                                                                tabBar:nil];
         _barScrollTool.delegateTargets = @[ self ];
-        _barScrollTool.tabBarBulgeOffset = 20;
+        if (kScreenWidth == 320 || (kScreenHeight == 320)) {
+            _barScrollTool.tabBarBulgeOffset = 30;
+        } else {
+            _barScrollTool.tabBarBulgeOffset = 20;
+        }
     }
     return _barScrollTool;
 }
