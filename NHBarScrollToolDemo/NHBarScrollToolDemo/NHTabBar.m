@@ -7,7 +7,7 @@
 //
 
 #import "NHTabBar.h"
-#import "UIView+NHFrame.h"
+#import <NHBarScrollTool.h>
 
 @interface NHTabBar ()
 @property (nonatomic ,weak) UIButton *centerBtn;

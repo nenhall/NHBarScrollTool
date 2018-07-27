@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9uA-yt-XwD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9uA-yt-XwD">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -31,10 +31,11 @@
         <!--原生-->
         <scene sceneID="7xH-w6-2lG">
             <objects>
-                <navigationController id="99s-4T-Cgi" customClass="NHNavigationController" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="99s-4T-Cgi" customClass="NHNavigationController" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="原生" id="LYU-XA-L9b"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1V9-6P-VyW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -48,7 +49,7 @@
         <!--Sub View Controller-->
         <scene sceneID="VKv-8T-V6o">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Ape-LK-1ni" customClass="NHSubViewController" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="Ape-LK-1ni" customClass="NHSubViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Tbw-4i-fKK"/>
                         <viewControllerLayoutGuide type="bottom" id="t2T-Q0-Ose"/>
@@ -57,17 +58,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oyJ-TS-edu">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oyJ-TS-edu">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="oyJ-TS-edu" secondAttribute="trailing" id="C84-DT-aeX"/>
-                            <constraint firstItem="oyJ-TS-edu" firstAttribute="top" secondItem="Tbw-4i-fKK" secondAttribute="bottom" constant="-64" id="GLJ-ot-cRE"/>
+                            <constraint firstItem="oyJ-TS-edu" firstAttribute="top" secondItem="Qdb-5N-4dh" secondAttribute="top" id="GLJ-ot-cRE"/>
                             <constraint firstItem="oyJ-TS-edu" firstAttribute="leading" secondItem="Qdb-5N-4dh" secondAttribute="leading" id="Nt2-zA-S6U"/>
-                            <constraint firstItem="t2T-Q0-Ose" firstAttribute="top" secondItem="oyJ-TS-edu" secondAttribute="bottom" constant="-49" id="how-a7-Zsf"/>
+                            <constraint firstAttribute="bottom" secondItem="oyJ-TS-edu" secondAttribute="bottom" id="how-a7-Zsf"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Cwz-fZ-kdS"/>
@@ -85,7 +86,7 @@
                 <navigationController id="Bpy-x0-Nwx" customClass="NHNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="自定义" id="aws-ps-o4g"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="u0Z-sA-dRQ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>

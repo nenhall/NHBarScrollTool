@@ -69,6 +69,7 @@
 		0ACD70011F386A8900C77CD3 /* NHSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHSubViewController.h; sourceTree = "<group>"; };
 		0ACD70021F386A8900C77CD3 /* NHSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHSubViewController.m; sourceTree = "<group>"; };
 		0ACD70031F386A8900C77CD3 /* NHSubViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NHSubViewController.xib; sourceTree = "<group>"; };
+		800BF7C3210963670090D52D /* NHBarScrollToolPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NHBarScrollToolPrefixHeader.pch; sourceTree = "<group>"; };
 		ABBFBDC677794F5C60320B0F /* Pods-NHBarScrollToolDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NHBarScrollToolDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NHBarScrollToolDemo/Pods-NHBarScrollToolDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		C5700290D8EE3DCE61808FE5 /* Pods-NHBarScrollToolDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NHBarScrollToolDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-NHBarScrollToolDemo/Pods-NHBarScrollToolDemo.release.xcconfig"; sourceTree = "<group>"; };
 		E9BF08597494328A99D6D0D1 /* libPods-NHBarScrollToolDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NHBarScrollToolDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				0ACD6FC91F38693D00C77CD3 /* main.m */,
+				800BF7C3210963670090D52D /* NHBarScrollToolPrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -203,7 +205,6 @@
 				0ACD6FC11F38693D00C77CD3 /* Sources */,
 				0ACD6FC21F38693D00C77CD3 /* Frameworks */,
 				0ACD6FC31F38693D00C77CD3 /* Resources */,
-				30252BF6AFB885356D380168 /* [CP] Embed Pods Frameworks */,
 				601ECC4EE3DC67D3895F39BA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -329,21 +330,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		30252BF6AFB885356D380168 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NHBarScrollToolDemo/Pods-NHBarScrollToolDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		601ECC4EE3DC67D3895F39BA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -355,7 +341,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -543,6 +529,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 69U78V53ZN;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/NHBarScrollToolDemo/NHBarScrollToolPrefixHeader.pch";
 				INFOPLIST_FILE = NHBarScrollToolDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -557,6 +544,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 69U78V53ZN;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/NHBarScrollToolDemo/NHBarScrollToolPrefixHeader.pch";
 				INFOPLIST_FILE = NHBarScrollToolDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

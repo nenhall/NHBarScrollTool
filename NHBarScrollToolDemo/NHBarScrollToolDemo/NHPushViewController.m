@@ -9,7 +9,7 @@
 #import "NHPushViewController.h"
 #import "NHBarScrollTool.h"
 #import <MJRefresh.h>
-#import "UIView+NHFrame.h"
+
 
 
 @interface NHPushViewController ()<UITableViewDataSource,UITableViewDelegate>

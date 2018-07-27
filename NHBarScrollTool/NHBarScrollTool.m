@@ -7,8 +7,201 @@
 //
 
 #import "NHBarScrollTool.h"
-#import "UIView+NHFrame.h"
 #import "MJRefresh.h"
+
+#ifndef UIViewNHLayout_H
+@interface UIView (NHLayout2)
+@property (nonatomic) CGFloat left;
+@property (nonatomic) CGFloat top;
+@property (nonatomic) CGFloat right;
+@property (nonatomic) CGFloat bottom;
+@property (nonatomic) CGFloat width;
+@property (nonatomic) CGFloat height;
+@property (nonatomic) CGFloat centerX;
+@property (nonatomic) CGFloat centerY;
+@property (nonatomic, readonly) CGFloat ttScreenX;
+@property (nonatomic, readonly) CGFloat ttScreenY;
+@property (nonatomic, readonly) CGFloat screenViewX;
+@property (nonatomic, readonly) CGFloat screenViewY;
+@property (nonatomic, readonly) CGRect screenFrame;
+@property (nonatomic) CGPoint origin;
+@property (nonatomic) CGSize size;
+@end
+
+@implementation UIView (NHLayout2)
+
+- (CGFloat)left {
+    return self.frame.origin.x;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setLeft:(CGFloat)x {
+    CGRect frame = self.frame;
+    frame.origin.x = x;
+    self.frame = frame;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)top {
+    return self.frame.origin.y;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setTop:(CGFloat)y {
+    CGRect frame = self.frame;
+    frame.origin.y = y;
+    self.frame = frame;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)right {
+    return self.frame.origin.x + self.frame.size.width;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setRight:(CGFloat)right {
+    CGRect frame = self.frame;
+    frame.origin.x = right - frame.size.width;
+    self.frame = frame;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)bottom {
+    return self.frame.origin.y + self.frame.size.height;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setBottom:(CGFloat)bottom {
+    CGRect frame = self.frame;
+    frame.origin.y = bottom - frame.size.height;
+    self.frame = frame;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)centerX {
+    return self.center.x;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setCenterX:(CGFloat)centerX {
+    self.center = CGPointMake(centerX, self.center.y);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)centerY {
+    return self.center.y;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setCenterY:(CGFloat)centerY {
+    self.center = CGPointMake(self.center.x, centerY);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)width {
+    return self.frame.size.width;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setWidth:(CGFloat)width {
+    CGRect frame = self.frame;
+    frame.size.width = width;
+    self.frame = frame;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)height {
+    return self.frame.size.height;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setHeight:(CGFloat)height {
+    CGRect frame = self.frame;
+    frame.size.height = height;
+    self.frame = frame;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)ttScreenX {
+    CGFloat x = 0.0f;
+    for (UIView* view = self; view; view = view.superview) {
+        x += view.left;
+    }
+    return x;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)ttScreenY {
+    CGFloat y = 0.0f;
+    for (UIView* view = self; view; view = view.superview) {
+        y += view.top;
+    }
+    return y;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)screenViewX {
+    CGFloat x = 0.0f;
+    for (UIView* view = self; view; view = view.superview) {
+        x += view.left;
+        
+        if ([view isKindOfClass:[UIScrollView class]]) {
+            UIScrollView* scrollView = (UIScrollView*)view;
+            x -= scrollView.contentOffset.x;
+        }
+    }
+    
+    return x;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGFloat)screenViewY {
+    CGFloat y = 0;
+    for (UIView* view = self; view; view = view.superview) {
+        y += view.top;
+        
+        if ([view isKindOfClass:[UIScrollView class]]) {
+            UIScrollView* scrollView = (UIScrollView*)view;
+            y -= scrollView.contentOffset.y;
+        }
+    }
+    return y;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGRect)screenFrame {
+    return CGRectMake(self.screenViewX, self.screenViewY, self.width, self.height);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGPoint)origin {
+    return self.frame.origin;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setOrigin:(CGPoint)origin {
+    CGRect frame = self.frame;
+    frame.origin = origin;
+    self.frame = frame;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (CGSize)size {
+    return self.frame.size;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)setSize:(CGSize)size {
+    CGRect frame = self.frame;
+    frame.size = size;
+    self.frame = frame;
+}
+@end
+#endif
+
+#pragma mark
+#pragma mark - ************** NHBarScrollHelper **************
+#pragma mark
 
 @interface NHBarScrollHelper : NSObject
 @property (nonatomic, weak  ) UIViewController   *currentConteroller;
@@ -23,64 +216,44 @@
 @property (nonatomic, assign) CGFloat            tabBarOriginallY;
 @property (nonatomic, assign) CGFloat            navgationHeight;
 @property (nonatomic, assign) CGFloat            tabbarHeight;
+@property (nonatomic, assign) CGFloat            tabBarBulgeOffset;
 @end
 
 
 @implementation NHBarScrollHelper
 
 #pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
+    _moveOffset = MAXFLOAT;
+    [self updatePageBarFrame];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     _scrollView = scrollView;
     
     CGFloat scrollViewOffsetY = scrollView.contentOffset.y;
     _moveOffset = scrollViewOffsetY - _lastPointY;
-//    NSLog(@"contentOffsetY:%f",scrollView.contentOffset.y);
-    
-    
-//    if (scrollViewOffsetY >= _navgationHeight) {
-//        return;
-//    }
-    
-    //往下拽刷新的时候，结束掉
-    if (scrollViewOffsetY <= -_scrollView.contentInset.top) {
-        return;
-    }
-    
     
     if (scrollView.mj_offsetY >= scrollView.mj_contentH - scrollView.mj_h + scrollView.mj_h + scrollView.mj_insetB - scrollView.mj_h) {
         return;
     }
     
-    
     [self updatePageBarFrame];
-    
     _lastPointY = scrollView.contentOffset.y;
 }
 
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    for (id target in self.weakRefTargets) {
-        if ([target respondsToSelector:_cmd]) {
-            [target scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
-        }
+    
+    if (!decelerate) {
+        _moveOffset = MAXFLOAT;
+        [self updatePageBarFrame];
     }
-    
-    _moveOffset = MAXFLOAT;
-    [self updatePageBarFrame];
-    
 }
 
-
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    
-    for (id target in self.weakRefTargets) {
-        if ([target respondsToSelector:_cmd]) {
-            [target scrollViewDidScrollToTop:scrollView];
-        }
-    }
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     _moveOffset = MAXFLOAT;
     [self updatePageBarFrame];
-    
 }
 
 
@@ -91,35 +264,59 @@
         [self updataTabBarAndNavigationBarFrame];
         return;
     }
+    
+    if (self.scrollView.contentOffset.y < -_scrollView.contentInset.top) {
+        return;
+    }
+
+    UIPanGestureRecognizer *pan = _scrollView.panGestureRecognizer;
+    CGFloat velocity = [pan velocityInView:_scrollView].y;
+    if (velocity > 100) {
+        if (_moveOffset < 0) {
+            [UIView animateWithDuration:0.1 animations:^{
+                self.navigationView.top = self.navBarOriginallY;
+                self.tabBar.top = self.tabBarOriginallY;
+            }];
+            return;
+        }
+    }
+    
     [self updateNavigationBarFrame];
-    
     [self updateTabBarFrame];
-    
-    
-    //    kNSLog(@"%f <-->",moveOffset);
+
 }
 
 
 - (void)updateNavigationBarFrame {
     CGFloat pageBarOffsetY = _navigationView.top;
-//    NSLog(@"%f--%f",_navigationView.top,_moveOffset);
+    CGFloat referencePoint = (_navgationHeight - _navBarOriginallY);
     
-    if (_moveOffset > 0) {
-        if (pageBarOffsetY <= -(_navgationHeight - _navBarOriginallY)) {
-            _navigationView.top = -(_navgationHeight - _navBarOriginallY);
+//    NHSLog(@"updateNavigationBarFrame:%f  %f  %f",pageBarOffsetY,_moveOffset,referencePoint);
+//    UIPanGestureRecognizer *pan = _scrollView.panGestureRecognizer;
+//    CGFloat velocity = [pan velocityInView:_scrollView].y;
+//    NHSLog(@"velocity %f   %f",velocity,_scrollView.contentSize.height);
+    
+
+    
+    if (_moveOffset > 0) {//上
+        if (pageBarOffsetY <= -referencePoint) {
+            [UIView animateWithDuration:0.1 animations:^{
+                self.navigationView.top = -referencePoint;
+            }];
             return;
         }
         
-    } else {
-        if (pageBarOffsetY == _navBarOriginallY) {
-            return;
-        }
-        
+    } else {//下
+//        NSLog(@"updateNavigationBarFrame  %f  %f  %f",pageBarOffsetY,referencePoint,_moveOffset);
+
         if (pageBarOffsetY >= _navBarOriginallY) {
-            _navigationView.top = _navBarOriginallY;
+            [UIView animateWithDuration:0.1 animations:^{
+                self.navigationView.top = self.navBarOriginallY;
+            }];
             return;
         }
     }
+    
     _navigationView.top -= _moveOffset;
 }
 
@@ -127,28 +324,28 @@
 - (void)updateTabBarFrame {
     
     CGFloat tabBarTop = _tabBar.top;
-    CGFloat tabBarOffset = 20;
-    CGFloat tabBar_Y = kScreenHeight + tabBarOffset;
+    CGFloat tabBarMaxY = kScreenHeight + _tabBarBulgeOffset + kTabBarBottomPad;
     
-    if (_moveOffset > 0) {
-        _tabBarController.hidesBottomBarWhenPushed = YES;
+        NHSLog(@"%f--%f",tabBarTop,_moveOffset);
+    
+    
+    if (_moveOffset > 0) {//上
+        if (tabBarTop >= tabBarMaxY) {
+            [UIView animateWithDuration:0.1 animations:^{
+                
+                self.tabBar.top = tabBarMaxY;
+            }];
+            return;
+        }
         
-        if (tabBarTop == tabBar_Y) {
-            return;
-        }
-        if (tabBarTop >= tabBar_Y) {
-            _tabBar.top = tabBar_Y;
-            _tabBarController.hidesBottomBarWhenPushed = YES;
-            return;
-        }
+    } else {//下
+        //        NSLog(@"updateNavigationBarFrame  %f  %f  %f",pageBarOffsetY,referencePoint,_moveOffset);
         
-    } else {
-        _tabBarController.hidesBottomBarWhenPushed = NO;
-        if (tabBarTop == kScreenHeight - _tabbarHeight) {
-            return;
-        }
-        if (tabBarTop <= kScreenHeight - _tabbarHeight) {
-            _tabBar.top = kScreenHeight - _tabbarHeight;
+        if (tabBarTop <= _tabBarOriginallY) {
+            [UIView animateWithDuration:0.1 animations:^{
+                
+                self.tabBar.top = self.tabBarOriginallY;
+            }];
             return;
         }
     }
@@ -156,52 +353,67 @@
     //    NSLog(@"%f <--> %f",moveOffset,tab.tabBar.bottom);
 }
 
-
 - (void)updataTabBarAndNavigationBarFrame {
     
     //    CGFloat tabBarOffset = kScreenHeight - _tabBar.top;
     CGFloat scrollViewOffsetY = _scrollView.contentOffset.y;
     
-    //    kNSLog(@"%f",_scrollView.contentOffset.y);
-    
-    if (_navigationView.top <= -_navgationHeight) {
-        _navigationView.top = -_navgationHeight;
+//    NSLog(@"%f--%f",_navigationView.top,scrollViewOffsetY);
+
+    if (_navigationView.top <= -(_navgationHeight)) {
+        [UIView animateWithDuration:0.1 animations:^{
+            self.navigationView.top = -self.navgationHeight;
+            self.tabBar.top = kScreenHeight + self.tabBarBulgeOffset;
+        }];
         return;
     }
     if (_navigationView.top >= 0) {
-        _navigationView.top = _navBarOriginallY;
+        [UIView animateWithDuration:0.1 animations:^{
+            self.navigationView.top = self.navBarOriginallY;
+            self.tabBar.top = self.tabBarOriginallY;
+        }];
         return;
     }
     
     //以navigationBar为参考对象
     if (fabs(_navigationView.top) + 0 < ((_navgationHeight - _navBarOriginallY) * 0.5)) {
-        
+//    if (_navigationView.top > 0) {
+    
         // 解决下滑到一半的时候，刷新栏目没有自动隐藏
         if (scrollViewOffsetY < 0) {
             _scrollView.contentOffset = CGPointMake(0, -_navgationHeight);
         }
-        _tabBar.top = kScreenHeight - _tabbarHeight;
-        _tabBarController.hidesBottomBarWhenPushed = NO;
-        _navigationView.top = _navBarOriginallY;
+        [UIView animateWithDuration:0.1 animations:^{
+            self.tabBar.top = kScreenHeight - self.tabbarHeight;
+            self.tabBarController.hidesBottomBarWhenPushed = NO;
+            self.navigationView.top = self.navBarOriginallY;
+        }];
         
     } else {
         // 解决上滑到一半的时候，刷新栏目没有自动隐藏
         if (scrollViewOffsetY < 0) {
             _scrollView.contentOffset = CGPointMake(0, 0);
         }
-        _tabBar.top = kScreenHeight + 20;
-        _tabBarController.hidesBottomBarWhenPushed = YES;
-        _navigationView.top = -_navgationHeight;
+        [UIView animateWithDuration:0.1 animations:^{
+            self.tabBar.top = kScreenHeight + self.tabBarBulgeOffset;
+            self.tabBarController.hidesBottomBarWhenPushed = YES;
+            self.navigationView.top = -self.navgationHeight;
+        }];
     }
 }
 
 @end
 
 
-@interface NHBarScrollTool ()
+@interface NHBarScrollTool () <UIGestureRecognizerDelegate>
 //这个必须要用strong，不会导致无法释放问题
 @property (nonatomic, strong) NSPointerArray     *weakRefTargets;
 @property (nonatomic, strong) NHBarScrollHelper  *scrollHelper;
+@property (nonatomic, assign) CGFloat lastContentOffset;
+@property (nonatomic, assign) CGFloat scrollSpeedFactor;
+@property (nonatomic, assign) BOOL scrollingEnabled;
+@property (nonatomic, assign) CGFloat            lastPointY;
+@property (nonatomic, assign) CGFloat            moveOffset;
 
 @end
 
@@ -239,8 +451,142 @@
         self.scrollHelper.tabbarHeight = tBar.height;
         self.scrollHelper.scrollView = scrollView;
         
+        if (scrollView) {
+            UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+            pan.delegate = self;
+            _scrollingEnabled = YES;
+//            [scrollView addGestureRecognizer:pan];
+        }
     }
     return self;
+}
+
+- (void)handlePan:(UIPanGestureRecognizer *)gesture {
+    UIView *superview = _scrollHelper.scrollView?: _scrollHelper.scrollView.superview;
+    CGPoint translation = [gesture translationInView:superview];
+//    CGFloat delta = (_lastContentOffset - translation.y) / _scrollSpeedFactor;
+    
+    _moveOffset = _lastPointY - translation.y;
+    _lastPointY = translation.y;
+    
+    [self updateNavigationBarFrame];
+    [self updateTabBarFrame];
+}
+
+
+
+- (void)updateNavigationBarFrame {
+    CGFloat pageBarOffsetY = _scrollHelper.navigationView.top;
+    CGFloat referencePoint = (_scrollHelper.navgationHeight - _scrollHelper.navBarOriginallY);
+    
+    UIPanGestureRecognizer *pan = _scrollHelper.scrollView.panGestureRecognizer;
+    CGFloat velocity = [pan velocityInView:_scrollHelper.scrollView].y;
+    NHSLog(@"velocity %f   %f",velocity,self.scrollHelper.scrollView.contentOffset.y);
+    
+    if (self.scrollHelper.scrollView.contentOffset.y < -88) {
+        return;
+    }
+    
+    if (velocity > 100) {
+        if (_moveOffset < 0) {
+            [UIView animateWithDuration:0.1 animations:^{
+                self.scrollHelper.navigationView.top = self.scrollHelper.navBarOriginallY;
+            }];
+            return;
+        }
+    }
+    
+    
+        if (pageBarOffsetY < -referencePoint) {
+            [UIView animateWithDuration:0.1 animations:^{
+                self.scrollHelper.navigationView.top = -referencePoint;
+            }];
+
+            return;
+        }
+        
+        NHSLog(@"updateNavigationBarFrame  %f  %f  %f",pageBarOffsetY,referencePoint,_moveOffset);
+        
+        if (pageBarOffsetY >= _scrollHelper.navBarOriginallY && (_moveOffset < 0)) {
+            [UIView animateWithDuration:0.1 animations:^{
+                self.scrollHelper.navigationView.top = self.scrollHelper.navBarOriginallY;
+            }];
+
+            return;
+        }
+        
+        if (pageBarOffsetY == _scrollHelper.navBarOriginallY) {
+            if (_moveOffset < 0) {
+//                _scrollHelper.navigationView.top = _scrollHelper.navBarOriginallY;
+                return;
+            }
+        }
+    
+    if (_moveOffset <= 0) {
+        if (_moveOffset < -_scrollHelper.navgationHeight) {
+            [UIView animateWithDuration:0.1 animations:^{
+                self.scrollHelper.navigationView.top = self.scrollHelper.navBarOriginallY;
+            }];
+
+            return;
+        } else if (_moveOffset > _scrollHelper.navgationHeight) {
+            [UIView animateWithDuration:0.1 animations:^{
+                self.scrollHelper.navigationView.top = -referencePoint;
+            }];
+            return;
+        }
+    }
+    
+    _scrollHelper.navigationView.top -= _moveOffset;
+
+}
+
+- (void)updateTabBarFrame {
+    
+    CGFloat tabBarTop = self.scrollHelper.tabBar.top;
+    CGFloat tabBarMaxY = kScreenHeight + _tabBarBulgeOffset + kTabBarBottomPad;
+    
+    NHSLog(@"%f--%f",tabBarTop,_moveOffset);
+    
+    if (_moveOffset > 0) {//上
+        if (tabBarTop >= tabBarMaxY) {
+            [UIView animateWithDuration:0.1 animations:^{
+                self.scrollHelper.tabBar.top = tabBarMaxY;
+            }];
+            return;
+        }
+        
+    } else {//下
+        if (tabBarTop <= self.scrollHelper.tabBarOriginallY) {
+            [UIView animateWithDuration:0.1 animations:^{
+                self.scrollHelper.tabBar.top = self.scrollHelper.tabBarOriginallY;
+            }];
+            return;
+        }
+    }
+    self.scrollHelper.tabBar.bottom += _moveOffset;
+    //    NSLog(@"%f <--> %f",moveOffset,tab.tabBar.bottom);
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer {
+    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+        return YES;
+    }
+    CGPoint velocity = [gestureRecognizer velocityInView:gestureRecognizer.view];
+    return fabs(velocity.y) > fabs(velocity.x);
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(nonnull UITouch *)touch {
+    return _scrollingEnabled;
+}
+
+
+- (void)setTabBarBulgeOffset:(CGFloat)tabBarBulgeOffset {
+    self.scrollHelper.tabBarBulgeOffset = _tabBarBulgeOffset;
 }
 
 - (NHBarScrollHelper *)scrollHelper {
@@ -314,5 +660,7 @@
 
 }
 
-
 @end
+
+
+

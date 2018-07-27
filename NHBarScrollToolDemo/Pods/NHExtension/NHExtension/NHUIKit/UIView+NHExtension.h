@@ -1,26 +1,16 @@
 //
-//  UIView+NHFrame.h
-//  NHBarScrollToolDemo
+//  UIView+NHExtension.h
+//  NHExtension
 //
-//  Created by neghao on 2017/8/8.
-//  Copyright © 2017年 neghao. All rights reserved.
+//  Created by simope on 16/7/19.
+//  Copyright © 2016年 facebac. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@interface UIView (NHExtension)
 
-#define kStatusBarHeight  [[UIApplication sharedApplication] statusBarFrame].size.height
-#define kScale            [UIScreen mainScreen].scale
-#define kScreenWidth      [UIScreen mainScreen].bounds.size.width
-#define kScreenHeight     [UIScreen mainScreen].bounds.size.height
-#define kTabbarHeight       49
-#define kNabBarHeight       44
-#define kNavgationHeight    (kStatusBarHeight +  kNabBarHeight)
-
-
-
-
-@interface UIView (NHFrame)
 /**
  * Shortcut for frame.origin.x.
  *

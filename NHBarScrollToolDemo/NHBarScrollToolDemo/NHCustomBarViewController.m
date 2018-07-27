@@ -9,7 +9,6 @@
 #import "NHCustomBarViewController.h"
 #import "NHBarScrollTool.h"
 #import <MJRefresh.h>
-#import "UIView+NHFrame.h"
 
 
 @interface NHCustomBarViewController ()<UITableViewDataSource,UITableViewDelegate>

@@ -1,0 +1,16 @@
+//
+//  NHBarScrollToolPrefixHeader.pch
+//  NHBarScrollToolDemo
+//
+//  Created by nenhall_work on 2018/7/26.
+//  Copyright © 2018年 neghao. All rights reserved.
+//
+
+#ifndef NHBarScrollToolPrefixHeader_pch
+#define NHBarScrollToolPrefixHeader_pch
+
+#import "NHBarScrollTool.h"
+
+
+
+#endif /* NHBarScrollToolPrefixHeader_pch */

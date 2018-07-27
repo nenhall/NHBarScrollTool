@@ -23,6 +23,9 @@
   "dependencies": {
     "MJRefresh": [
 
+    ],
+    "NHExtension": [
+
     ]
   }
 }

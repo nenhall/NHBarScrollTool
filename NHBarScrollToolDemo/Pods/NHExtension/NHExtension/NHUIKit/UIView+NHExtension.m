@@ -1,14 +1,15 @@
 //
-//  UIView+NHFrame.m
-//  NHBarScrollToolDemo
+//  UIView+NHExtension.m
+//  NHExtension
 //
-//  Created by neghao on 2017/8/8.
-//  Copyright © 2017年 neghao. All rights reserved.
+//  Created by simope on 16/7/19.
+//  Copyright © 2016年 facebac. All rights reserved.
 //
 
-#import "UIView+NHFrame.h"
+#import "UIView+NHExtension.h"
 
-@implementation UIView (NHFrame)
+@implementation UIView (NHExtension)
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (CGFloat)left {
     return self.frame.origin.x;

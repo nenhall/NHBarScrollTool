@@ -5,5 +5,5 @@ target 'NHBarScrollToolDemo' do
 
 pod "MJRefresh"
 pod 'NHBarScrollTool', :path=> '../NHBarScrollTool.podspec'
-
+#pod 'NHExtension'
 end

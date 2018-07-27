@@ -21,9 +21,8 @@
     [super viewDidLoad];
     self.navigationItem.title = @"原生导航、工具栏";
 
-    
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self setupTableView];
-    
     
     
 }
@@ -36,17 +35,21 @@
                                                         navigationBar:nil
                                                                tabBar:nil];
         _barScrollTool.delegateTargets = @[ self ];
+        _barScrollTool.tabBarBulgeOffset = 20;
     }
     return _barScrollTool;
 }
 
 - (void)setupTableView {
+//    self.tableView.translatesAutoresizingMaskIntoConstraints = YES;
+//    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+    self.automaticallyAdjustsScrollViewInsets = NO;
 
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     self.tableView.dataSource = self;
     self.tableView.delegate = self.barScrollTool;
-    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
-    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(kNavgationHeight, 0, 0, 0);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(kNavgationHeight, 0, 0, 0);
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)2 * NSEC_PER_SEC), dispatch_queue_create("head", NULL), ^{
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -54,7 +57,6 @@
             });
         });
     }];
-    
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)2 * NSEC_PER_SEC), dispatch_queue_create("head", NULL), ^{
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -75,6 +77,8 @@
     
     cell.textLabel.text = [NSString stringWithFormat:@"%ld",indexPath.row];
     
+    cell.backgroundColor = [UIColor redColor];
+    
     return cell;
 }
 
@@ -83,9 +87,16 @@
     return 60;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.0;
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"%s  contentOffsetY:%f",__func__,scrollView.contentOffset.y);
+//    NSLog(@"%s  contentOffsetY:%f",__func__,scrollView.contentOffset.y);
 
 }
 
