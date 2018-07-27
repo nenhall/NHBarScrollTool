@@ -462,7 +462,7 @@
         self.scrollHelper.tabBar = tBar;
         self.scrollHelper.scrollView = scrollView;
         [self updateConstraints];
-        
+        [self setDelegateTargets:@[ self.scrollHelper ]];
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
         
         if (scrollView) {
@@ -623,6 +623,7 @@
     if ([super respondsToSelector:aSelector]) {
         return YES;
     }
+    
     for (id target in self.weakRefTargets) {
         if (target && [target respondsToSelector:aSelector]) {
             return YES;
@@ -679,7 +680,6 @@
         [self.weakRefTargets addPointer:(__bridge void * _Nullable)(delegate)];
     }
     [self.weakRefTargets addPointer:(__bridge void * _Nullable)(self.scrollHelper)];
-
 }
 
 - (void)dealloc {
