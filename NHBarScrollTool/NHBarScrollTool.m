@@ -248,7 +248,6 @@
 
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    
     if (!decelerate) {
         _moveOffset = MAXFLOAT;
         [self updatePageBarFrame];
@@ -306,7 +305,6 @@
         
     } else {//下
 //        NSLog(@"updateNavigationBarFrame  %f  %f  %f",pageBarOffsetY,referencePoint,_moveOffset);
-
         if (pageBarOffsetY >= _navBarOriginallY) {
             [UIView animateWithDuration:0.1 animations:^{
                 self.navigationView.top = self.navBarOriginallY;
@@ -324,64 +322,75 @@
     CGFloat tabBarTop = _tabBar.top;
     CGFloat tabBarMaxY = kScreenHeight + _tabBarBulgeOffset + kTabBarBottomPad;
     
-        NHSLog(@"%f--%f",tabBarTop,_moveOffset);
-    
+//        NHSLog(@"%f--%f",tabBarTop,_moveOffset);
     
     if (_moveOffset > 0) {//上
         if (tabBarTop >= tabBarMaxY) {
             [UIView animateWithDuration:0.1 animations:^{
-                
                 self.tabBar.top = tabBarMaxY;
             }];
             return;
         }
         
     } else {//下
-        //        NSLog(@"updateNavigationBarFrame  %f  %f  %f",pageBarOffsetY,referencePoint,_moveOffset);
-        
+        // NSLog(@"updateNavigationBarFrame  %f  %f  %f",pageBarOffsetY,referencePoint,_moveOffset);
         if (tabBarTop <= _tabBarOriginallY) {
             [UIView animateWithDuration:0.1 animations:^{
-                
                 self.tabBar.top = self.tabBarOriginallY;
             }];
             return;
         }
     }
+    
     _tabBar.bottom += _moveOffset;
     //    NSLog(@"%f <--> %f",moveOffset,tab.tabBar.bottom);
 }
 
 - (void)updataTabBarAndNavigationBarFrame {
     
-    //    CGFloat tabBarOffset = kScreenHeight - _tabBar.top;
     CGFloat scrollViewOffsetY = _scrollView.contentOffset.y;
     
-//    NSLog(@"%f--%f",_navigationView.top,scrollViewOffsetY);
+    //以navigationBar为参考对象
+    UIView *referenceObj =_navigationView ?: _tabBar;
+    CGFloat referenceH = _navgationHeight;
+    CGFloat referenceO_Y = _navBarOriginallY;
+    if (!_navigationView) {
+        referenceH = _tabBarOriginallY;
+        referenceO_Y = _tabBarOriginallY;
+    }
+    
+//    NHSLog(@"%f--%f",_tabBar.top,kScreenHeight - (_tabbarHeight * 0.5));
 
-    if (_navigationView.top <= -(_navgationHeight)) {
+    if (referenceObj.top <= -(referenceH)) {
         [UIView animateWithDuration:0.1 animations:^{
             self.navigationView.top = -self.navgationHeight;
-            self.tabBar.top = kScreenHeight + self.tabBarBulgeOffset;
+            self.tabBar.top = kScreenHeight + self.tabBarBulgeOffset + kTabBarBottomPad;
         }];
         return;
     }
-    if (_navigationView.top >= 0) {
+    
+    
+    if (_navigationView && _navigationView.top >= 0) {
         [UIView animateWithDuration:0.1 animations:^{
             self.navigationView.top = self.navBarOriginallY;
             self.tabBar.top = self.tabBarOriginallY;
         }];
         return;
+    } else {
+        if (_tabBar.top < (kScreenHeight - (_tabbarHeight * 0.5))) {
+            [UIView animateWithDuration:0.1 animations:^{
+                self.navigationView.top = self.navBarOriginallY;
+                self.tabBar.top = self.tabBarOriginallY;
+            }];
+            return;
+        }
     }
-    
-    //以navigationBar为参考对象
-    if (fabs(_navigationView.top) + 0 < ((_navgationHeight - _navBarOriginallY) * 0.5)) {
-//    if (_navigationView.top > 0) {
-    
+
+
+    if (fabs(referenceObj.top) < ((referenceH - referenceO_Y) * 0.5)) {
         // 解决下滑到一半的时候，刷新栏目没有自动隐藏
         if (scrollViewOffsetY < 0) {
-            _scrollView.contentOffset = CGPointMake(0, -_navgationHeight);
-        } else {
-            
+            _scrollView.contentOffset = CGPointMake(0, -_scrollView.contentInset.top);
         }
         [UIView animateWithDuration:0.1 animations:^{
             self.tabBar.top = kScreenHeight - self.tabbarHeight;
@@ -398,7 +407,7 @@
             }];
         } else {
             [UIView animateWithDuration:0.1 animations:^{
-                self.tabBar.top = kScreenHeight + self.tabBarBulgeOffset;
+                self.tabBar.top = kScreenHeight + self.tabBarBulgeOffset + kTabBarBottomPad;
                 self.navigationView.top = -self.navgationHeight;
             }];
         }
@@ -442,8 +451,8 @@
     
     if (self == [super init]) {
         
-        UIView *navBar = navigationBar ?: viewController.navigationController.navigationBar;
-        UITabBar *tBar = tabBar ?: viewController.tabBarController.tabBar;
+        UIView *navBar = navigationBar;// ?: viewController.navigationController.navigationBar;
+        UITabBar *tBar = tabBar;// ?: viewController.tabBarController.tabBar;
         self.scrollHelper.currentConteroller = viewController;
         self.scrollHelper.tabBarController = viewController.tabBarController;
         self.scrollHelper.navigationView = navBar;

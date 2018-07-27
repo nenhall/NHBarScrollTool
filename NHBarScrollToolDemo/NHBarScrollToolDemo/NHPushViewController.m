@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIView *tabBar;
 @property (nonatomic, strong) NHBarScrollTool *barScrollTool;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *navHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tabHeight;
 @end
 
 @implementation NHPushViewController
@@ -39,12 +41,14 @@
 }
 
 - (void)setupTableView {
-    
+    _navHeight.constant += kStatusTopPad;
+    _tabHeight.constant += kTabBarBottomPad;
+
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     self.tableView.dataSource = self;
     self.tableView.delegate = self.barScrollTool;
-    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
-    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 0, 0);
+//    self.tableView.contentInset = UIEdgeInsetsMake(kNavgationHeight, 0, 0, 0);
+//    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(kNavgationHeight, 0, 0, 0);
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)2 * NSEC_PER_SEC), dispatch_queue_create("head", NULL), ^{
             dispatch_async(dispatch_get_main_queue(), ^{
