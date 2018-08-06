@@ -241,11 +241,13 @@
         return;
     }
     
+
     CGFloat currentOffset = (scrollView.contentOffset.y + scrollView.height - scrollView.contentInset.bottom);
     if (currentOffset >= scrollView.contentSize.height) {
         [self updataTabBarAndNavigationBarFrame];
         return;
     }
+
     
     CGFloat scrollViewOffsetY = scrollView.contentOffset.y;
     _moveOffset = scrollViewOffsetY - _lastPointY;
@@ -508,12 +510,11 @@
     if (devOrientation == UIDeviceOrientationPortraitUpsideDown) return;
     if (kInterfaceOrientation == _lastdevOrientation) return;
     _lastdevOrientation = kInterfaceOrientation;
-    
+
     [self updateConstraints];
 }
 
 - (void)updateConstraints {
-    
     _scrollHelper.navBarOriginallY = _scrollHelper.navigationView.top;
     _scrollHelper.tabBarOriginallY = _scrollHelper.tabBar.top;
     _scrollHelper.navgationHeight = _scrollHelper.navigationView.height + _scrollHelper.navigationView.top;

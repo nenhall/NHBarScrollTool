@@ -12,16 +12,16 @@
 
 #import "GTMDefines.h"
 #import "GTMNSData+zlib.h"
-#import "NSData+Cache.h"
-#import "NSDate+switchDate.h"
 #import "NSDictionary+NHJSON.h"
-#import "NSObject+getCurrentVC.h"
 #import "NSObject+Log.h"
 #import "NSObject+NHExtension.h"
 #import "NSObject+runtime.h"
-#import "NSString+NHExtension.h"
-#import "NSTimer+AutoRetain.h"
-
+#import "NSString+NHExtend.h"
+#import "NSTimer+NHAutoRetain.h"
+#import "NSDate+NHExtend.h"
+#import "NSObject+NHExtend.h"
+#import "NSData+NHExtend.h"
+#import "NSURL+NHExtend.h"
 
 #endif
 

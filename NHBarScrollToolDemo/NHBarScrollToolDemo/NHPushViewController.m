@@ -29,12 +29,18 @@
 
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    [self.barScrollTool updateConstraints];
+}
+
+
 - (NHBarScrollTool *)barScrollTool {
     if (!_barScrollTool) {
-        _barScrollTool = [NHBarScrollTool BarScrollToolWithController:self
-                                                           scrollView:_tableView
-                                                        navigationBar:_navigationBar
-                                                               tabBar:_tabBar];
+        _barScrollTool = [NHBarScrollTool barToolWithController:self
+                                                     scrollView:_tableView
+                                                  navigationBar:_navigationBar
+                                                         tabBar:_tabBar];
         _barScrollTool.delegateTargets = @[ self ];
     }
     return _barScrollTool;
@@ -43,6 +49,8 @@
 - (void)setupTableView {
     _navHeight.constant += kStatusTopPad;
     _tabHeight.constant += kTabBarBottomPad;
+    [self.view updateConstraints];
+    [self.view updateConstraintsIfNeeded];
 
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     self.tableView.dataSource = self;
@@ -91,7 +99,7 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"%s  contentOffsetY:%f",__func__,scrollView.contentOffset.y);
+//    NSLog(@"%s  contentOffsetY:%f",__func__,scrollView.contentOffset.y);
     
 }
 

@@ -2,8 +2,8 @@
 //  UIColor+NHExtension.m
 //  NHExtension
 //
-//  Created by simope on 16/7/19.
-//  Copyright © 2016年 facebac. All rights reserved.
+//  Created by neghao on 2016/11/24.
+//  Copyright © 2016年 neghao.studio. All rights reserved.
 //
 
 #import "UIColor+NHExtension.h"
@@ -113,7 +113,7 @@
 }
 
 #pragma mark 16#转rgb 增加
-+  (UIColor *) callColorFromHexRGB:(NSString *) inColorString{
++  (UIColor *)callColorFromHexRGB:(NSString *) inColorString{
     UIColor *result = nil;
     unsigned int colorCode = 0;
     unsigned char redByte, greenByte, blueByte;
