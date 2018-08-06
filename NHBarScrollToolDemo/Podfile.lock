@@ -8,6 +8,7 @@ PODS:
 DEPENDENCIES:
   - MJRefresh
   - NHBarScrollTool (from `../NHBarScrollTool.podspec`)
+  - NHExtension
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -23,6 +24,6 @@ SPEC CHECKSUMS:
   NHBarScrollTool: d3eafe2c918ac5dc6158772c0c61be481c5a843e
   NHExtension: 49e61282938629d54739f7903860aac7aacc0ffa
 
-PODFILE CHECKSUM: 654922b7dd92852c81912dd4cfd95cedc1aa7361
+PODFILE CHECKSUM: aea405800566a0ca4ac6b99a5c5dd42dd80aee76
 
 COCOAPODS: 1.5.3
