@@ -55,6 +55,7 @@
 @property (nonatomic, readonly) CGRect screenFrame;
 @property (nonatomic) CGPoint origin;
 @property (nonatomic) CGSize size;
+
 @end
 
 @implementation UIView (NHLayout2)
@@ -223,6 +224,8 @@
 @property (nonatomic, assign) CGFloat            navgationHeight;
 @property (nonatomic, assign) CGFloat            tabbarHeight;
 @property (nonatomic, assign) CGFloat            tabBarBulgeOffset;
+@property (nonatomic, assign) BOOL               disenableAutoScroll;
+
 @end
 
 
@@ -235,19 +238,20 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (_disenableAutoScroll) return;
+    
     _scrollView = scrollView;
     
     if (scrollView.contentOffset.y <= -scrollView.contentInset.top) {
         return;
     }
     
-
     CGFloat currentOffset = (scrollView.contentOffset.y + scrollView.height - scrollView.contentInset.bottom);
     if (currentOffset >= scrollView.contentSize.height) {
         [self updataTabBarAndNavigationBarFrame];
         return;
     }
-
     
     CGFloat scrollViewOffsetY = scrollView.contentOffset.y;
     _moveOffset = scrollViewOffsetY - _lastPointY;
@@ -259,6 +263,8 @@
 
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (_disenableAutoScroll) return;
+
     int currentOffset = (scrollView.contentOffset.y + scrollView.height - scrollView.contentInset.bottom);
     if (currentOffset == (int)scrollView.contentSize.height) {
         [UIView animateWithDuration:0.1 animations:^{
@@ -274,7 +280,9 @@
     }
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (_disenableAutoScroll) return;
+
     int currentOffset = (scrollView.contentOffset.y + scrollView.height - scrollView.contentInset.bottom);
     if (currentOffset == (int)scrollView.contentSize.height) {
         [UIView animateWithDuration:0.1 animations:^{
@@ -485,12 +493,14 @@
         UIView *navBar = navigationBar; // ?: viewController.navigationController.navigationBar;
         UITabBar *tBar = tabBar; // ?: viewController.tabBarController.tabBar;
         self.scrollHelper.currentConteroller = viewController;
+        self.scrollHelper.disenableAutoScroll = NO;
         self.scrollHelper.tabBarController = viewController.tabBarController;
         self.scrollHelper.navigationView = navBar;
         self.scrollHelper.tabBar = tBar;
         self.scrollHelper.scrollView = scrollView;
         [self updateConstraints];
         [self setDelegateTargets:@[ self.scrollHelper ]];
+        
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
         
         if (scrollView) {
@@ -503,6 +513,7 @@
     return self;
 }
 
+
 - (void)deviceOrientationDidChange:(NSNotification *)note {
     UIDeviceOrientation devOrientation = [UIDevice currentDevice].orientation;
     if (devOrientation == UIDeviceOrientationFaceUp) return;
@@ -510,15 +521,22 @@
     if (devOrientation == UIDeviceOrientationPortraitUpsideDown) return;
     if (kInterfaceOrientation == _lastdevOrientation) return;
     _lastdevOrientation = kInterfaceOrientation;
-
+    
     [self updateConstraints];
 }
 
 - (void)updateConstraints {
+    
     _scrollHelper.navBarOriginallY = _scrollHelper.navigationView.top;
-    _scrollHelper.tabBarOriginallY = _scrollHelper.tabBar.top;
-    _scrollHelper.navgationHeight = _scrollHelper.navigationView.height + _scrollHelper.navigationView.top;
     _scrollHelper.tabbarHeight = _scrollHelper.tabBar.height;
+
+    if (_scrollHelper.tabBar.top < kScreenHeight) {
+        _scrollHelper.tabBarOriginallY = _scrollHelper.tabBar.top;
+    }
+    
+    if (_scrollHelper.navigationView.top > 0) {
+        _scrollHelper.navgationHeight = _scrollHelper.navigationView.height + _scrollHelper.navigationView.top;
+    }
 }
 
 - (void)handlePan:(UIPanGestureRecognizer *)gesture {
@@ -642,6 +660,9 @@
     return _scrollingEnabled;
 }
 
+- (void)setDisenableAutoScroll:(BOOL)disenableAutoScroll {
+    _scrollHelper.disenableAutoScroll = disenableAutoScroll;
+}
 
 - (void)setTabBarBulgeOffset:(CGFloat)tabBarBulgeOffset {
     self.scrollHelper.tabBarBulgeOffset = tabBarBulgeOffset;

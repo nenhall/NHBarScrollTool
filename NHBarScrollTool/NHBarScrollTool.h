@@ -13,6 +13,8 @@
 @interface NHBarScrollTool : NSObject <UITableViewDelegate,UIScrollViewDelegate,UICollectionViewDelegate>
 @property (nonatomic, copy) IBOutletCollection(id) NSArray* delegateTargets;
 
+@property (nonatomic, assign) BOOL disenableAutoScroll;/**< 不允许自动滚动 defalt NO */
+
 /** tabBar凸出部份的高度，默认为0 */
 @property (nonatomic, assign) CGFloat tabBarBulgeOffset;
 
