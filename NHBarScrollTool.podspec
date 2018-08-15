@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "NHBarScrollTool"
-  s.version      = "1.1.4"
+  s.version      = "1.1.5"
   s.summary      = "导航栏、工具栏一键跟随tableview的滚动来控制显示和隐藏"
   s.description  = <<-DESC
   导航栏、工具栏一键跟随tableview的滚动来控制显示和隐藏工具库
